@@ -1,0 +1,30 @@
+import React from 'react';
+import '.App.css';
+
+function App() {
+  const data = ['Item1', 'Item2', 'Item3'];
+  const profile = [
+    { name 'albin', age 21, place 'wayanad' },
+    { name 'anshad', age 24, place 'wayanad' },
+    { name 'sreekumar', age 23, place 'ernakulam' }
+  ];
+
+  return (
+    div
+      ul
+        {data.map((item, index) = (
+          li key={index}{item}li
+        ))}
+      ul
+      ul
+        {profile.map((person, index) = (
+          li key={index}
+            Name {person.name}, Age {person.age}
+          li
+        ))}
+      ul
+    div
+  );
+}
+
+export default App;
