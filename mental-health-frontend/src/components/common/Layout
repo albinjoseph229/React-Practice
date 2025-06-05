@@ -1,0 +1,76 @@
+import React from 'react';
+import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { useAuth } from '../../context/AuthContext';
+import './Layout.css';
+
+const Layout = ({ children }) => {
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  return (
+    <div className="layout-wrapper">
+      {/* Top Navigation */}
+      <Navbar bg="primary" variant="dark" expand="lg" className="shadow-sm">
+        <Container fluid>
+          <Navbar.Brand href="#home">
+            Mental Health Management System
+          </Navbar.Brand>
+          
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <LinkContainer to="/dashboard">
+                <Nav.Link>Dashboard</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/patient-registration">
+                <Nav.Link>New Patient</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/patient-records">
+                <Nav.Link>Patient Records</Nav.Link>
+              </LinkContainer>
+            </Nav>
+            
+            {/* User dropdown */}
+            <Nav>
+              <Dropdown align="end">
+                <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
+                  👤 {user?.name || 'User'}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#profile">Profile</Dropdown.Item>
+                  <Dropdown.Item href="#settings">Settings</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleLogout}>
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      {/* Main Content */}
+      <main className="main-content">
+        <Container fluid className="py-4">
+          {children}
+        </Container>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-light py-3 mt-auto">
+        <Container>
+          <div className="text-center text-muted">
+            © 2025 Mental Health Management System. All rights reserved.
+          </div>
+        </Container>
+      </footer>
+    </div>
+  );
+};
+
+export default Layout;
